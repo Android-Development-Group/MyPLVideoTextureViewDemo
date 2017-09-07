@@ -3,13 +3,6 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Bundled (Maven 3)" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
@@ -41,19 +34,10 @@
           <State>
             <id />
           </State>
-          <State>
-            <id>Android Lint</id>
-          </State>
-          <State>
-            <id>General</id>
-          </State>
-          <State>
-            <id>Maven</id>
-          </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>AndroidLintUseCompoundDrawables</id>
+            <id>Android</id>
           </State>
         </selected-state>
       </profile-state>
@@ -76,7 +60,7 @@
     <option name="id" value="Android" />
   </component>
   <component name="SvnConfiguration">
-    <configuration>$USER_HOME$/.subversion</configuration>
+    <configuration>C:\Users\T5\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="masterDetails">
     <states>
@@ -87,6 +71,17 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.20040283" />
               </list>
             </option>
           </splitter-proportions>

@@ -140,4 +140,26 @@ public class NeteastVideoSummaryV9LG4B3A0 {
         this.m3u8_url = m3u8_url;
     }
 
+
+    @Override
+    public String toString() {
+        return "NeteastVideoSummaryV9LG4B3A0{" +
+                "picWidth=" + picWidth +
+                ", picHeight=" + picHeight +
+                ", length=" + length +
+                ", description='" + description + '\'' +
+                ", videosource='" + videosource + '\'' +
+                ", title='" + title + '\'' +
+                ", mp4_url='" + mp4_url + '\'' +
+                ", cover='" + cover + '\'' +
+                ", vid='" + vid + '\'' +
+                ", playCount=" + playCount +
+                ", replyBoard='" + replyBoard + '\'' +
+                ", playersize=" + playersize +
+                ", replyid='" + replyid + '\'' +
+                ", sectiontitle='" + sectiontitle + '\'' +
+                ", ptime='" + ptime + '\'' +
+                ", m3u8_url='" + m3u8_url + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,6 @@
 package com.lin.mvp.myplvideotextureviewdemo.base;
 
-public interface IBaseFragment {
+public interface IBaseView {
     void showProgressDialog();
 
     void hidProgressDialog();

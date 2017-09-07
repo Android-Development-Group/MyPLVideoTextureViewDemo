@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,13 +33,13 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity implements VideoContract.IVideoFragment {
+public class MainActivity extends AppCompatActivity implements VideoContract.IVideoView {
 
     protected static final String VEDIO_ID = "V9LG4B3A0";
 
     private static final String TAG = "MainActivity";
 
-    private int position ;
+    private int position;
 
     protected String mVideoId;
     @InjectView(R.id.prograss)
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements VideoContract.IVi
             public void loadMore() {
                 // 状态停止，并且滑动到最后一位
                 isLoadMore = true;
-                position+=10;
+                position += 10;
                 System.out.println("position:" + position);
                 loadMoreData();
                 // 显示尾部加载
@@ -148,15 +149,15 @@ public class MainActivity extends AppCompatActivity implements VideoContract.IVi
     }
 
     private void loadData() {
-        mPresenter.getVideoData(VEDIO_ID,0);
+        mPresenter.getVideoData(VEDIO_ID, 0);
     }
 
     private void loadMoreData() {
-        mPresenter.getVideoData(VEDIO_ID,position);
+        mPresenter.getVideoData(VEDIO_ID, position);
     }
 
     private void onRefreshData() {
-        mPresenter.getVideoData(VEDIO_ID,0);
+        mPresenter.getVideoData(VEDIO_ID, 0);
     }
 
     private void initToolBar() {
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements VideoContract.IVi
 
     @Override
     public void updateVideoData(NeteastVideoSummary data) {
+        Log.i(TAG, "updateVideoData: data=" + data);
         NeteastVideoSummary videoData = data;
         if (videoData != null) {
             mData = videoData.getV9LG4B3A0();
@@ -179,12 +181,12 @@ public class MainActivity extends AppCompatActivity implements VideoContract.IVi
                 if (mData == null || mData.size() == 0) {
                     mRecyclerView.notifyAllLoaded();
 //                    toast("全部加载完毕噜(☆＿☆)");
-                    Toast.makeText(MainActivity.this,"全部加载完毕噜(☆＿☆)",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "全部加载完毕噜(☆＿☆)", Toast.LENGTH_SHORT).show();
                 } else {
                     mAdapter.addMoreData(mData);
                     mRecyclerView.notifyMoreLoaded();
                 }
-            }else {
+            } else {
                 mAdapter.setData(mData);
             }
         }
@@ -203,8 +205,8 @@ public class MainActivity extends AppCompatActivity implements VideoContract.IVi
 
     @Override
     public void showError(String error) {
-        Toast.makeText(MainActivity.this,error,Toast.LENGTH_SHORT).show();
-        System.out.println("error:"+error);
+        Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
+        System.out.println("error:" + error);
         mAdapter.hideFooter();
         mRecyclerView.notifyMoreLoadedFail();
         System.out.println("加载失败");

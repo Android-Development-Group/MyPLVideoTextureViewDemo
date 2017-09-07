@@ -1,6 +1,8 @@
 package com.lin.mvp.myplvideotextureviewdemo.api;
 
 
+import android.util.Log;
+
 import com.lin.mvp.myplvideotextureviewdemo.MyApplication;
 import com.lin.mvp.myplvideotextureviewdemo.util.NetWorkUtil;
 
@@ -11,6 +13,7 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -46,12 +49,25 @@ public class ApiManager {
     private static File httpCacheDirectory = new File(MyApplication.getContext().getExternalCacheDir(), "newsCache");
     private static int cacheSize = 10 * 1024 * 1024; // 10 MiB
     private static Cache cache = new Cache(httpCacheDirectory, cacheSize);
+
     private static OkHttpClient client = new OkHttpClient.Builder()
             .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
             .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+            .addInterceptor(getInterceptor())
             .cache(cache)
             .build();
 
+    private static Interceptor getInterceptor() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.i("OkHttp", message);
+            }
+        });
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        return loggingInterceptor;
+    }
 
     private Object newsClientMonitor = new Object();
 
@@ -67,9 +83,9 @@ public class ApiManager {
     }
 
 
-
-    public  VideoApi mVideoApi;
+    public VideoApi mVideoApi;
     public static final String GANK_URL = "http://c.3g.163.com/";
+
     public VideoApi getVideoService() {
         if (mVideoApi == null) {
             synchronized (newsClientMonitor) {

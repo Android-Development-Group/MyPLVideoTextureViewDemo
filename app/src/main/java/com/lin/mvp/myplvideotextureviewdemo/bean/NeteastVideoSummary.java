@@ -12,4 +12,11 @@ public class NeteastVideoSummary {
     public void setV9LG4B3A0(List<NeteastVideoSummaryV9LG4B3A0> V9LG4B3A0) {
         this.V9LG4B3A0 = V9LG4B3A0;
     }
+
+    @Override
+    public String toString() {
+        return "NeteastVideoSummary{" +
+                "V9LG4B3A0=" + V9LG4B3A0 +
+                '}';
+    }
 }

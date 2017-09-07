@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -51,11 +52,17 @@ public class VideoActivity extends AppCompatActivity {
     private int mVideoRotation;
     private boolean needResume;
 
-    /** 最大声音 */
+    /**
+     * 最大声音
+     */
     private int mMaxVolume;
-    /** 当前声音 */
+    /**
+     * 当前声音
+     */
     private int mVolume = -1;
-    /** 当前亮度 */
+    /**
+     * 当前亮度
+     */
     private float mBrightness = -1f;
     private AudioManager mAudioManager;
     private GestureDetector mGestureDetector;
@@ -71,9 +78,9 @@ public class VideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video);
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             mVideoPath = intent.getStringExtra("videoUrl");
+            Log.i("VideoPath", "onCreate: mVideoPath=" + mVideoPath);
         }
 
         mVideoView = (PLVideoTextureView) findViewById(R.id.videoView);
@@ -108,7 +115,7 @@ public class VideoActivity extends AppCompatActivity {
 
 //        int isLiveStreaming = getIntent().getIntExtra("liveStreaming", 1);
         // the unit of timeout is ms
-        int isLiveStreaming =IS_LIVE_STREAMING;
+        int isLiveStreaming = IS_LIVE_STREAMING;
         options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, 10 * 1000);
         options.setInteger(AVOptions.KEY_GET_AV_FRAME_TIMEOUT, 10 * 1000);
         // Some optimization with buffering mechanism when be set to 1
@@ -148,14 +155,13 @@ public class VideoActivity extends AppCompatActivity {
             public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int width, int height) {
 //                Logger.i("width:" + width + "---heightL:" + height);
                 System.out.println("width:" + width + "---heightL:" + height);
-                if (width > height&&mVideoRotation==0) {
+                if (width > height && mVideoRotation == 0) {
                     //旋转方向
                     System.out.println("旋转方向");
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 }
                 //如果视频角度是90度
-                if(mVideoRotation==90)
-                {
+                if (mVideoRotation == 90) {
                     //旋转视频
                     System.out.println("旋转方向" + mVideoRotation);
                     mVideoView.setDisplayOrientation(270);
@@ -339,7 +345,7 @@ public class VideoActivity extends AppCompatActivity {
                     break;
                 case 10001:
                     //保存视频角度
-                    mVideoRotation=extra;
+                    mVideoRotation = extra;
 
                     break;
             }
@@ -404,7 +410,9 @@ public class VideoActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
 
-    /** 手势结束 */
+    /**
+     * 手势结束
+     */
     private void endGesture() {
         mVolume = -1;
         mBrightness = -1f;
@@ -416,13 +424,15 @@ public class VideoActivity extends AppCompatActivity {
 
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
-        /** 双击 */
+        /**
+         * 双击
+         */
         @Override
         public boolean onDoubleTap(MotionEvent e) {
 
-            if(mDisplayAspectRatio == PLVideoTextureView.ASPECT_RATIO_FIT_PARENT){
+            if (mDisplayAspectRatio == PLVideoTextureView.ASPECT_RATIO_FIT_PARENT) {
                 mDisplayAspectRatio = PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT;
-            }else {
+            } else {
                 mDisplayAspectRatio = PLVideoTextureView.ASPECT_RATIO_FIT_PARENT;
             }
 
@@ -436,7 +446,9 @@ public class VideoActivity extends AppCompatActivity {
             return true;
         }
 
-        /** 滑动 */
+        /**
+         * 滑动
+         */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                 float distanceX, float distanceY) {
@@ -455,7 +467,9 @@ public class VideoActivity extends AppCompatActivity {
         }
     }
 
-    /** 定时隐藏 */
+    /**
+     * 定时隐藏
+     */
     private Handler mDismissHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

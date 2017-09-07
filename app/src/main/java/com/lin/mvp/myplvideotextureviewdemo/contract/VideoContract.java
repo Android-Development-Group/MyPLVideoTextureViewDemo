@@ -1,7 +1,7 @@
 package com.lin.mvp.myplvideotextureviewdemo.contract;
 
 import com.lin.mvp.myplvideotextureviewdemo.base.BasePresenter;
-import com.lin.mvp.myplvideotextureviewdemo.base.IBaseFragment;
+import com.lin.mvp.myplvideotextureviewdemo.base.IBaseView;
 import com.lin.mvp.myplvideotextureviewdemo.bean.NeteastVideoSummary;
 
 /**
@@ -19,7 +19,7 @@ public interface VideoContract {
         void getVideoData(String id ,int startPage);
     }
 
-    public interface IVideoFragment extends IBaseFragment {
+    public interface IVideoView extends IBaseView {
 
         void updateVideoData(NeteastVideoSummary videoData);
     }
